@@ -10,7 +10,7 @@ import {
 
 const router = createBrowserRouter([
   {
-    // parent route
+    //parent route
     path: "/",
     element: <HomeLayout />,
     errorElement: <Error />,
