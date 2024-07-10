@@ -1,3 +1,5 @@
+Coding Addict MERN Stack course project
+
 #### Complete App
 
 [Jobify](https://jobify.live/)
