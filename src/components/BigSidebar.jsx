@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import Wrapper from "../assets/wrappers/BigSidebar";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import Logo from "./Logo";
@@ -17,7 +18,9 @@ const BigSidebar = () => {
 			>
 				<div className="content">
 					<header>
-						<Logo />
+						<NavLink to={"/"}>
+							<Logo />
+						</NavLink>
 					</header>
 					{/* pass in a props so that the nav bar doesn't close everytime going to a new page (unlike small navbar) */}
 					<NavLinks isBigSidebar />

@@ -3,6 +3,7 @@ import Wrapper from "../assets/wrappers/SmallSidebar";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
+import { NavLink } from "react-router-dom";
 
 const SmallSidebar = () => {
 	const { showSidebar, toggleSidebar } = useDashboardContext();
@@ -28,7 +29,9 @@ const SmallSidebar = () => {
 						<FaTimes />
 					</button>
 					<header>
-						<Logo />
+						<NavLink to={"/"}>
+							<Logo />
+						</NavLink>
 					</header>
 					<NavLinks />
 				</div>
