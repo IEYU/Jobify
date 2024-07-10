@@ -14,6 +14,15 @@ import {
 } from "./pages";
 import { element } from "three/examples/jsm/nodes/Nodes.js";
 
+//add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
+export const checkDefaultTheme = () => {
+	const isDarkTheme = localStorage.getItem("darkTheme") === "true";
+	document.body.classList.toggle("dark-theme", isDarkTheme);
+	return isDarkTheme;
+};
+
+checkDefaultTheme();
+
 const router = createBrowserRouter([
 	{
 		//parent route
