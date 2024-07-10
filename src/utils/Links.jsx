@@ -10,7 +10,7 @@ import { deflate } from "three/examples/jsm/libs/fflate.module.js";
 const links = [
 	{
 		text: "add job",
-		path: ".",
+		path: ".", //relative home path to dashboard, '/' would lead to actual home page
 		icon: <FaWpforms />,
 	},
 	{
