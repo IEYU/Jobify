@@ -17,11 +17,19 @@ const Wrapper = styled.section`
   }
   h1 {
     font-weight: 700;
-    span {
-      color: var(--primary-500);
-    }
     margin-bottom: 1.5rem;
   }
+
+  h1 span {
+    color: var(--primary-500);
+    transition: color 0.3s ease;
+  }
+
+  h1 span:hover {
+    color: var(--hover-color);
+    cursor: default;
+  }
+
   p {
     line-height: 2;
     color: var(--text-secondary-color);
