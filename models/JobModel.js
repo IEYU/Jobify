@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//values outside of this schema won't be added to the mongoDB collection
 const JobSchema = new mongoose.Schema({
     company: String,
     position: String,
