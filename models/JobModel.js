@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { JOB_STATUS, JOB_TYPE } from "../utils/constants";
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 
 //values outside of this schema won't be added to the mongoDB collection
 const JobSchema = new mongoose.Schema({

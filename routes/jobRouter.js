@@ -2,11 +2,12 @@ import {Router} from "express"
 const router = Router()
 
 import {getAllJobs, getJob, createJob, updateJob, deleteJob} from "../controllers/jobController.js";
+import { validateJobInput } from "../middleware/validationMiddleware.js";
 
 router.get("/", getAllJobs);
-router.post("/", createJob);
+router.post("/",validateJobInput, createJob);
 router.get("/:id", getJob);
-router.patch("/:id", updateJob);
+router.patch("/:id",validateJobInput, updateJob);
 router.delete("/:id", deleteJob);
 
 export default router;
