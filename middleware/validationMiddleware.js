@@ -1,6 +1,7 @@
-import {body, validationResult} from "express-validator";
+import {body, param, validationResult} from "express-validator";
 import { BadRequestError } from "../errors/customErrors.js";
 import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
+import mongoose from 'mongoose';
 
 // validation middleware
 const withValidationError = (validateValues) => {
@@ -24,4 +25,11 @@ export const validateJobInput = withValidationError([
     body("jobLocation").notEmpty().withMessage("job location is required"),
     body("jobStatus").isIn(Object.values(JOB_STATUS)).withMessage("invalid status"), //make sure job status is in the enum
     body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid job type")
+])
+
+// validation with custom param (param is "/:id", so it's an id in our case) and see if it's valid
+export const validateIdParam = withValidationError([
+    param("id")
+        .custom((value)=>mongoose.Types.ObjectId.isValid(value))
+        .withMessage("invalid mongoDB id")
 ])
