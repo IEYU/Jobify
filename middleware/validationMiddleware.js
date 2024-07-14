@@ -1,7 +1,8 @@
 import {body, param, validationResult} from "express-validator";
-import { BadRequestError } from "../errors/customErrors.js";
+import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
 import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 import mongoose from 'mongoose';
+import Job from "../models/JobModel.js";
 
 // validation middleware
 const withValidationError = (validateValues) => {
@@ -11,6 +12,9 @@ const withValidationError = (validateValues) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             const errorMessages = errors.array().map((error)=>error.msg);
+            if(errorMessages[0].startsWith("no job")){
+                throw new NotFoundError(errorMessages);
+            }
             throw new BadRequestError(errorMessages);
         }
         next(); // so that the request doesn't just stop
@@ -30,6 +34,10 @@ export const validateJobInput = withValidationError([
 // validation with custom param (param is "/:id", so it's an id in our case) and see if it's valid
 export const validateIdParam = withValidationError([
     param("id")
-        .custom((value)=>mongoose.Types.ObjectId.isValid(value))
-        .withMessage("invalid mongoDB id")
+        .custom(async (value)=>{
+            const isValidId = mongoose.Types.ObjectId.isValid(value);
+            if(!isValidId) throw new BadRequestError("invalid mongoDB id"); //async function doesn't return true or false
+            const job = await Job.findById(value);
+            if(!job) throw new NotFoundError(`no job with id ${value}`); //if can't find the job
+        })
 ])
