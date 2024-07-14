@@ -6,6 +6,7 @@ import express from "express";
 const app = express();
 import morgan from "morgan";
 import mongoose from "mongoose";
+import { validateTest } from "./middleware/validationMiddleware.js";
 
 // routers
 import jobRouter from "./routes/jobRouter.js"
@@ -24,10 +25,15 @@ app.get("/", (req, res)=>{
     res.send("hello world")
 });
 
-app.post("/", (req, res)=>{
-    console.log(req);
-    res.json({message: "data received", data: req.body})
-})
+// post route to the home page
+// use the validator as the middleware
+app.post("/api/v1/test", 
+    validateTest,
+    (req, res)=>{
+        // console.log(req);
+        const {name} = req.body;
+        res.json({message: `hello ${name}`})
+    })
 
 // routers
 app.use("/api/v1/jobs", jobRouter);

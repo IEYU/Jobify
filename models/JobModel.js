@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { JOB_STATUS, JOB_TYPE } from "../utils/constants";
 
 //values outside of this schema won't be added to the mongoDB collection
 const JobSchema = new mongoose.Schema({
@@ -6,13 +7,14 @@ const JobSchema = new mongoose.Schema({
     position: String,
     jobStatus:{
         type: String,
-        enum: ['interview', 'declined', 'pending'],
-        default: 'pending'
+        //set up constants in a separate file
+        enum: Object.values(JOB_STATUS),
+        default: JOB_STATUS.PENDING
     },
     jobType:{
         type: String,
-        enum: ['full-time', 'part-time', 'internship'],
-        default: 'internship'
+        enum: Object.values(JOB_TYPE),
+        default: JOB_TYPE.INTERNSHIP
     },
     jobLocation:{
         type: String,
