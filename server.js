@@ -8,7 +8,8 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 
 // routers
-import jobRouter from "./routes/jobRouter.js"
+import jobRouter from "./routes/jobRouter.js";
+import authRouter from "./routes/authRouter.js";
 
 // middleware
 import errorHandlerMiddlerware from "./middleware/errorHandlerMiddleware.js";
@@ -26,6 +27,7 @@ app.get("/", (req, res)=>{
 
 // routers
 app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/auth", authRouter);
 
 // handle 404 not found (request for nonexisting resource)
 app.use("*", (req, res)=>{
