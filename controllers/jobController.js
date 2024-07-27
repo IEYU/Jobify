@@ -6,13 +6,14 @@ import { NotFoundError } from "../errors/customErrors.js";
 
 // get all jobs
 export const getAllJobs = async (req, res)=>{
-    console.log(req.user);
-    const jobs = await Job.find({})
+    // console.log(req.user);
+    const jobs = await Job.find({createdBy:req.user.userId})//only provide jobs that belong to that specific user
     res.status(StatusCodes.OK).json({ jobs });
 }
 
 // create job
 export const createJob = async (req, res)=>{
+    req.body.createdBy = req.user.userId
     const job = await Job.create(req.body); //asynchronously create a job with the provided company and position
     res.status(StatusCodes.CREATED).json({job})   //send back the job created
 }
