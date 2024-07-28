@@ -71,3 +71,19 @@ export const validateLoginInput = withValidationError([
                  .isEmail().withMessage("invalid email address"),
     body("password").notEmpty().withMessage("password is required")
 ])
+
+// validate user update
+export const validateUpdateUserInput = withValidationError([
+    body("name").notEmpty().withMessage("first name is required"),
+    //also checks that the email is valid and unique
+    body("email").notEmpty().withMessage("registration email is required")
+                 .isEmail().withMessage("invalid email address")
+                 .custom(async(email, {req}) => {
+                    const user = await User.findOne({email})//look for user based on the email passed in
+                    if(user && user._id.toString() !== req.user.userId){//check for user and unique email 
+                        throw new BadRequestError("email already exists");
+                    }
+                 }),
+    body("lastName").notEmpty().withMessage("last name is required"),
+    body("location").notEmpty().withMessage("location is required")
+])
