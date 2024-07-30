@@ -1,14 +1,32 @@
-import { Outlet } from "react-router-dom";
+import {
+	Navigate,
+	Outlet,
+	redirect,
+	useLoaderData,
+	useNavigate,
+} from "react-router-dom";
 import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 import { createContext, useContext, useState } from "react";
 import { checkDefaultTheme } from "../App";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
+
+export const loader = async () => {
+	try {
+		const { data } = await customFetch.get("/users/current-user");
+		return data;
+	} catch (error) {
+		return redirect("/"); //if there's any issue with the JWT, user has to repeat login step
+	}
+};
 
 const DashboardContext = createContext();
 
 const DashboardLayout = () => {
-	// temp
-	const user = { name: "Joe" };
+	const { user } = useLoaderData(); //get the user from database (returns an object and deconstruct to get the user property)
+	const navigate = useNavigate(); //a react hook that returns a function for navigating to different routes
+
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
@@ -25,7 +43,9 @@ const DashboardLayout = () => {
 	};
 
 	const logoutUser = async () => {
-		console.log("logout user");
+		navigate("/");
+		await customFetch.get("/auth/logout");
+		toast.success("Logging out...");
 	};
 
 	return (
@@ -41,13 +61,14 @@ const DashboardLayout = () => {
 		>
 			<Wrapper>
 				<main className="dashboard">
-					<SmallSidebar />
+					<SmallSidebar /> {/* use the dashboard context */}
 					<BigSidebar />
 					<div>
 						<Navbar />
 						<div className="dashboard-page">
 							{/* to render the child route elements */}
-							<Outlet />
+							<Outlet context={{ user }} />{" "}
+							{/* context from the user object for all of the components inside those pages */}
 						</div>
 					</div>
 				</main>

@@ -14,6 +14,8 @@ import {
 } from "./pages";
 import { element } from "three/examples/jsm/nodes/Nodes.js";
 import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+import { loader as dashboardLoader } from "./pages/DashboardLayout";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -43,10 +45,12 @@ const router = createBrowserRouter([
 			{
 				path: "login",
 				element: <Login />,
+				action: loginAction,
 			},
 			{
 				path: "dashboard",
 				element: <DashboardLayout />,
+				loader: dashboardLoader,
 				children: [
 					//pages to render in the dashboard apge
 					{
