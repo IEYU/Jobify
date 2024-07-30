@@ -13,6 +13,7 @@ import {
 	Admin,
 } from "./pages";
 import { element } from "three/examples/jsm/nodes/Nodes.js";
+import { action as registerAction } from "./pages/Register";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
 			{
 				path: "register",
 				element: <Register />,
+				action: registerAction,
 			},
 			{
 				path: "login",
