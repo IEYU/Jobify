@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
+      '/api': {//all request in the front end that goes to /api will be forward to the target url
         target: 'http://localhost:5100/api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
