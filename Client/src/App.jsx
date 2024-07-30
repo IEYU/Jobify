@@ -16,6 +16,7 @@ import { element } from "three/examples/jsm/nodes/Nodes.js";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
+import { action as addJobAction } from "./pages/AddJob";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
 					{
 						index: true,
 						element: <AddJob />, //add job is set to be the index page of dashboard
+						action: addJobAction,
 					},
 					{
 						path: "stats",
