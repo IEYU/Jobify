@@ -13,9 +13,18 @@ import jobRouter from "./routes/jobRouter.js";
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 
+// public
+import {dirname} from "path";
+import { fileURLToPath } from "url";
+import path from "path";
+
 // middleware
 import errorHandlerMiddlerware from "./middleware/errorHandlerMiddleware.js";
 import {authenticateUser} from "./middleware/authMiddleware.js";
+
+// where the front-end is located
+const __dirname = dirname(fileURLToPath(import.meta.url)); //directory name of the current module file
+app.use(express.static(path.resolve(__dirname, "./public"))); //serve static files from the "public" directory
 
 if(process.env.NODE_ENV === "development"){
     app.use(morgan("dev"))
