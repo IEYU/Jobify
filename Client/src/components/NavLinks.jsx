@@ -9,6 +9,9 @@ const NavLinks = ({ isBigSidebar }) => {
 		<div className="nav-links">
 			{Links.map((link) => {
 				const { text, path, icon } = link;
+				// won't display the admin link if the user isn't admin role
+				const { role } = user;
+				if (path === "admin" && role !== "admin") return;
 				return (
 					<NavLink //also add toggle button to reset the state of showSidebar
 						to={path}
