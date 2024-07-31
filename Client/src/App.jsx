@@ -23,6 +23,7 @@ import { loader as editJobLoader } from "./pages/EditJob";
 import { action as editJobAction } from "./pages/EditJob";
 import { action as deleteJobAction } from "./pages/DeleteJob";
 import { loader as adminLoader } from "./pages/Admin";
+import { action as profileAction } from "./pages/Profile";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -77,6 +78,7 @@ const router = createBrowserRouter([
 					{
 						path: "profile",
 						element: <Profile />,
+						action: profileAction,
 					},
 					{
 						path: "admin",

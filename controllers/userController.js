@@ -15,6 +15,7 @@ export const getApplicationStatus = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
+    console.log(req.file);
     //don't want to also update password everytime
     const obj = {...req.body};
     delete obj.password;
