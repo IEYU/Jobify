@@ -11,6 +11,7 @@ import {
 	AllJobs,
 	Profile,
 	Admin,
+	EditJob,
 } from "./pages";
 import { element } from "three/examples/jsm/nodes/Nodes.js";
 import { action as registerAction } from "./pages/Register";
@@ -18,6 +19,8 @@ import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { action as addJobAction } from "./pages/AddJob";
 import { loader as allJobsLoader } from "./pages/AllJobs";
+import { loader as editJobLoader } from "./pages/EditJob";
+import { action as editJobAction } from "./pages/EditJob";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -76,6 +79,12 @@ const router = createBrowserRouter([
 					{
 						path: "admin",
 						element: <Admin />,
+					},
+					{
+						path: "edit-job/:id", //route to that specific job
+						element: <EditJob />,
+						loader: editJobLoader,
+						action: editJobAction,
 					},
 				],
 			},
