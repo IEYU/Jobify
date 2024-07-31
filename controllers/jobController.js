@@ -1,6 +1,8 @@
 import Job from "../models/JobModel.js";
 import { StatusCodes } from "http-status-codes";
 import { NotFoundError } from "../errors/customErrors.js";
+import mongoose from "mongoose";
+import day from "dayjs";
 
 // everything here should be correct, if a job is invalid, the validation middleware should catch it and send back the error response
 
@@ -43,4 +45,28 @@ export const deleteJob = async (req, res)=>{
     const removedJob = await Job.findByIdAndDelete(id);
     //if everything is correct
     res.status(StatusCodes.OK).json({msg: "job deleted"})
+}
+
+// show stats
+export const showStats = async(req, res) => {
+    const defaultStats = {
+        pending: 22,
+        interview: 11,
+        declined: 4
+    };
+    let monthlyApplications = [
+        {
+            date: "May 24", 
+            count: 1,
+        },
+        {
+            date: "June 24", 
+            count: 2,
+        },
+        {
+            date: "July 24", 
+            count: 3,
+        }
+    ]
+    res.status(StatusCodes.OK).json({defaultStats, monthlyApplications});
 }
