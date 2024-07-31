@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
         default:"user"
     },
     avatar: String,
-    avatorPublicId: String
+    avatarPublicId: String,
 })
 
 UserSchema.methods.toJSON = function(){
