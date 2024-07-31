@@ -21,6 +21,7 @@ import { action as addJobAction } from "./pages/AddJob";
 import { loader as allJobsLoader } from "./pages/AllJobs";
 import { loader as editJobLoader } from "./pages/EditJob";
 import { action as editJobAction } from "./pages/EditJob";
+import { action as deleteJobAction } from "./pages/DeleteJob";
 
 //add the checking in App.js instead of dashboard so that the setting can be applied to all the child pages
 export const checkDefaultTheme = () => {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
 						loader: editJobLoader,
 						action: editJobAction,
 					},
+					{ path: "delete-job/:id", action: deleteJobAction },
 				],
 			},
 		],
