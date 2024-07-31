@@ -1,4 +1,4 @@
-import { UnauthenticatedError, UnauthorizedError } from "../errors/customErrors.js";
+import { UnauthenticatedError, UnauthorizedError, BadRequestError } from "../errors/customErrors.js";
 import { verifyJWT } from "../utils/tokenUtils.js";
 
 export const authenticateUser = (req, res, next) => {
@@ -7,7 +7,8 @@ export const authenticateUser = (req, res, next) => {
     //if the token cookie is present, verify if the JWT is valid, if so, grab the user id and role
     try {
         const {userId, role} = verifyJWT(token);
-        req.user = {userId, role};
+        const testUser = userId === "66aa97494dc9464ff9515f66";
+        req.user = {userId, role, testUser};
         next();//if good, move on to the next middleware (controller in this case)
     } catch (error) {
         throw new UnauthenticatedError("invalid authentication");
@@ -22,4 +23,9 @@ export const authorizePermissions = (...roles) => {
         }
         next();
     }
+}
+
+export const checkForTestUser = (req, res, next) => {
+    if(req.user.testUser) throw new BadRequestError("Demo User, read only!");
+    next();
 }
